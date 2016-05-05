@@ -3,10 +3,11 @@ from math import isinf
 import pdb
 
 class Node:
-  def __init__(self, name):
+  def __init__(self, name, info=None):
     self.connections = []
     self.inbox = {} # messages recieved
     self.name = name
+    self.info = info
 
   def append(self, to_node):
     """
@@ -30,9 +31,9 @@ class Factor(Node):
   that the connections are created in the same exact order
   as the potentials' dimensions are given
   """
-  def __init__(self, name, potentials):
+  def __init__(self, name, potentials, info=None):
     self.p = potentials
-    Node.__init__(self, name)
+    Node.__init__(self, name, info)
 
   def make_message(self, recipient):
     """
@@ -136,10 +137,10 @@ class Factor(Node):
     return out
 
 class Variable(Node):
-  def __init__(self, name, size):
+  def __init__(self, name, size, info=None):
     self.bfmarginal = None
     self.size = size
-    Node.__init__(self, name)
+    Node.__init__(self, name, info)
 
   def marginal(self):
     """
